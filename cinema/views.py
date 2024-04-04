@@ -106,12 +106,12 @@ class MovieViewSet(
         if self.action == "upload_image":
             return MovieImageSerializer
 
-        return MovieSerializer
+        return self.serializer_class
 
     @action(
         methods=["POST"],
         detail=True,
-        permission_classes=[IsAdminUser, ],
+        permission_classes=[IsAdminOrIfAuthenticatedReadOnly, ],
         url_path="upload_image",
     )
     def upload_image(self, request, pk=None):
